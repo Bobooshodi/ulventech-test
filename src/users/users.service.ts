@@ -8,8 +8,8 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { UserGender } from './enums/UserGender';
-import {validate} from "class-validator";
-import {InvalidClassException} from "@nestjs/core/errors/exceptions";
+import { validate } from 'class-validator';
+import { InvalidClassException } from '@nestjs/core/errors/exceptions';
 
 @Injectable()
 export class UsersService {
