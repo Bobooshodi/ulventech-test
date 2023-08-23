@@ -5,8 +5,15 @@
 git clone https://github.com/Bobooshodi/ulventech-test.git
 ```
 
-## Installation
+# Installation
+## With Docker
+```bash
+$ docker-compose up -d
+```
+Done, you can noe access the app via http://localhost:3000/users
 
+
+## Without Docker
 ```bash
 $ npm install
 ```
@@ -24,6 +31,8 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+Done, you can noe access the app via http://localhost:3000/users
+
 ## Test
 
 ```bash
@@ -36,3 +45,4 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
