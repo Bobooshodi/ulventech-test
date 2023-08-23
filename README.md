@@ -6,6 +6,7 @@ git clone https://github.com/Bobooshodi/ulventech-test.git
 ```
 
 # Installation
+Navigate to the folder where you cloned the project
 ## With Docker
 ```bash
 $ docker-compose up -d
