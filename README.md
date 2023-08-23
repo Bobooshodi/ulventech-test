@@ -7,19 +7,17 @@ git clone https://github.com/Bobooshodi/ulventech-test.git
 
 # Installation
 Navigate to the folder where you cloned the project
-## With Docker
+```bash
+$ npm install
+```
+## Running the app With Docker
 ```bash
 $ docker-compose up -d
 ```
 Done, you can noe access the app via http://localhost:3000/users
 
 
-## Without Docker
-```bash
-$ npm install
-```
-
-## Running the app
+## Running the app Without Docker
 
 ```bash
 # development
