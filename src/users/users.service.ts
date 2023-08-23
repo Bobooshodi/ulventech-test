@@ -1,9 +1,15 @@
-import { Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotAcceptableException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { UserGender } from './enums/UserGender';
+import {validate} from "class-validator";
+import {InvalidClassException} from "@nestjs/core/errors/exceptions";
 
 @Injectable()
 export class UsersService {
@@ -22,12 +28,19 @@ export class UsersService {
   }
 
   async create(data: CreateUserDto): Promise<User> {
+    const validationErrors = await validate(data);
+
+    if (!!validationErrors && validationErrors.length) {
+      throw new InvalidClassException('Invalid User Parameters Provided');
+    }
     const userIndex = this.persistedUsers.findIndex(
       ({ email }) => email === data.email,
     );
 
     if (userIndex >= 0) {
-      throw new NotAcceptableException('User Already Exists');
+      throw new NotAcceptableException(
+        'A User Already Exists with the specified email',
+      );
     }
 
     const user = new User(data);
@@ -52,7 +65,12 @@ export class UsersService {
     return user;
   }
 
-  update(userId: string, data: UpdateUserDto): Promise<User> {
+  async update(userId: string, data: UpdateUserDto): Promise<User> {
+    const validationErrors = await validate(data);
+
+    if (!!validationErrors && validationErrors.length) {
+      throw new InvalidClassException('Invalid User Parameters Provided');
+    }
     const userIndex = this.findUserIndex(userId);
     const user = this.persistedUsers[userIndex];
     const {
@@ -78,7 +96,7 @@ export class UsersService {
     return new Promise<User>((resolve) => resolve(user));
   }
 
-  remove(userId: string) {
+  async remove(userId: string) {
     const userIndex = this.findUserIndex(userId);
 
     const deletedUser = this.persistedUsers.splice(userIndex, 1);
